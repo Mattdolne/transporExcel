@@ -6,15 +6,24 @@ O **transporExcel** é um utilitário desktop em Python desenvolvido para realiz
 
 ## 🖥️ Como Executar o Programa
 
-### 1. Na sua máquina local (Desenvolvimento)
-Você pode executar o programa usando o atalho de lote:
+### 1. Executando o Código Fonte (Desenvolvimento)
+Você pode executar o programa localmente usando o atalho:
 👉 **`transporExcel.bat`**
 
-### 2. Em outras máquinas Windows (Sem Python instalado)
-Para utilizar o programa em outras máquinas de forma autônoma:
-1. Acesse a pasta **`compilado/`**.
-2. Copie o arquivo executável **`transporExcel.exe`** para a máquina de destino.
-3. Clique duas vezes no executável para iniciar.
+### 2. Gerando o Executável Autônomo (Para testes em outras máquinas)
+Os arquivos binários compilados são ignorados pelo Git (`.gitignore`). Para gerar o arquivo executável autônomo (`transporExcel.exe`) para testes em outras máquinas Windows:
+
+1. Ative o ambiente virtual e instale as dependências:
+   ```bash
+   .venv\Scripts\activate.bat
+   pip install -r requirements.txt
+   ```
+2. Execute o comando de compilação do PyInstaller:
+   ```bash
+   pyinstaller --noconsole --onefile transporExcel.py
+   ```
+3. Mova o executável gerado da pasta `dist/` para a pasta `compilado/`.
+4. Copie o arquivo `transporExcel.exe` da pasta `compilado/` para qualquer outra máquina Windows e execute-o com um clique duplo (sem necessidade de ter Python instalado).
 
 ---
 
@@ -42,6 +51,5 @@ Para viabilizar a leitura e escrita em planilhas que possuem proteção corporat
 ## 📂 Estrutura de Arquivos
 * `transporExcel.py`: Código fonte principal da interface gráfica.
 * `transporExcel.bat`: Inicializador local para a interface gráfica.
-* `compilado/transporExcel.exe`: Executável autônomo.
-* `requirements.txt`: Dependências necessárias do Python.
+* `requirements.txt`: Dependências necessárias do Python (inclui `pywin32` e `pyinstaller`).
 * `gemini.md`: Contexto técnico para desenvolvedores.

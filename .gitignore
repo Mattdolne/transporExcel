@@ -8,6 +8,7 @@ __pycache__/
 # PyInstaller
 build/
 dist/
+compilado/
 *.spec
 
 # IDEs

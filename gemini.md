@@ -5,7 +5,7 @@ Este arquivo serve como contexto técnico para guiar modelos de IA que venham a 
 ---
 
 ## 🎯 Visão Geral do Projeto
-O **transporExcel** é um utilitário desktop em Python com interface gráfica (GUI) e de linha de comando (CLI) feito para transpor dados estruturados de planilhas de origem (sejam elas lineares ou agrupadas em colunas repetidas por categoria) para planilhas de destino (estruturadas em uma tabela linear).
+O **transporExcel** é um utilitário desktop em Python com interface gráfica (GUI) feito para transpor dados estruturados de planilhas de origem (sejam elas lineares ou agrupadas em colunas repetidas por categoria) para planilhas de destino (estruturadas em uma tabela linear).
 
 ---
 
@@ -21,7 +21,7 @@ O **transporExcel** é um utilitário desktop em Python com interface gráfica (
 
 ### 1. Tratamento de Arquivos Protegidos por DRM
 As planilhas de origem ou destino podem utilizar segurança corporativa do Office (DRM/IRM). Bibliotecas Python puras (como pandas ou openpyxl) falham ao abrir esses arquivos (`zipfile.BadZipFile` ou `XLRDError`).
-* **Solução:** O script utiliza o Microsoft Excel instalado localmente via automação COM. O Excel abre o arquivo em segundo plano (invisível/headless) e realiza a descriptografia transparente usando as credenciais do usuário local.
+* **Solução:** O script utiliza o Microsoft Excel instalado localmente via automação COM. O Excel abre o arquivo em segundo tempo (invisível/headless) e realiza a descriptografia transparente usando as credenciais do usuário local.
 
 ### 2. Execução Multi-threaded
 Operações de leitura e escrita via COM no Excel podem demorar. Para evitar que a interface gráfica trave ou mostre "Não Respondendo":
@@ -60,8 +60,6 @@ Ao limpar ou sobrescrever, o programa apaga linhas inteiras utilizando o interva
 * `transporExcel.bat`: Inicializador local que ativa a `.venv` e roda o script em UTF-8.
 * `requirements.txt`: Contém a lista de dependências (`pywin32` e `pyinstaller`).
 * `compilado/transporExcel.exe`: Arquivo binário empacotado para execução direta.
-* `main.py`: Arquivo da versão CLI (linha de comando).
-* `executar.bat`: Inicializador local da versão CLI.
 * `gemini.md`: Este arquivo de contexto de IA.
 
 ---

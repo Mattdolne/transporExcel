@@ -33,7 +33,7 @@ Operações de leitura e escrita via COM no Excel podem demorar de 1 a 5 segundo
   # Executa ações com win32com...
   pythoncom.CoUninitialize()
   ```
-* **Atualizações de UI seguras:** As atualizações na interface gráfica vindas das threads são enfileiradas de forma segura na thread principal usando `root.after()`.
+* **Atualizações de UI seguras:** As updates na interface gráfica vindas das threads são enfileiradas de forma segura na thread principal usando `root.after()`.
 
 ### 3. Mapeamento Semântico de Colunas
 O programa possui um motor que analisa os cabeçalhos das planilhas para mapear equivalências:
@@ -60,6 +60,8 @@ Ao limpar ou sobrescrever, o programa apaga linhas inteiras utilizando o interva
 * `transporExcel.bat`: Inicializador local que ativa a `.venv` e roda o script em UTF-8.
 * `requirements.txt`: Contém a lista de dependências (`pywin32` e `pyinstaller`).
 * `compilado/transporExcel.exe`: Arquivo binário empacotado para execução direta sem necessidade de instalar dependências.
+* `main.py`: Arquivo da versão CLI (linha de comando).
+* `executar.bat`: Inicializador local da versão CLI.
 * `gemini.md`: Este arquivo de contexto de IA.
 
 ---

@@ -13,5 +13,5 @@ if not exist .venv (
 )
 
 call .venv\Scripts\activate.bat
-python gestao_cartao.py
+python main.py
 pause

@@ -41,4 +41,6 @@ As planilhas de cartão corporativo utilizam criptografia de direitos digitais (
 * [compilado/transporExcel.exe](file:///C:/Users/mattheus.pereira/Desktop/script_gestao_de_cartao/compilado/transporExcel.exe): Executável autônomo compilado para distribuição.
 * [transporExcel.py](file:///C:/Users/mattheus.pereira/Desktop/script_gestao_de_cartao/transporExcel.py): Código fonte da Interface Gráfica.
 * [transporExcel.bat](file:///C:/Users/mattheus.pereira/Desktop/script_gestao_de_cartao/transporExcel.bat): Atalho de inicialização para Windows local.
+* [main.py](file:///C:/Users/mattheus.pereira/Desktop/script_gestao_de_cartao/main.py): Código fonte da versão terminal CLI.
+* [executar.bat](file:///C:/Users/mattheus.pereira/Desktop/script_gestao_de_cartao/executar.bat): Atalho de inicialização para a versão terminal.
 * [requirements.txt](file:///C:/Users/mattheus.pereira/Desktop/script_gestao_de_cartao/requirements.txt): Dependências do projeto.

@@ -1,11 +1,11 @@
 # transporExcel - AI Context Handoff
 
-Este arquivo serve como contexto técnico para guiar modelos de IA que venham a trabalhar neste projeto no futuro. Ele descreve a arquitetura, regras de negócio e decisões técnicas de implementação.
+Este arquivo serve como contexto técnico para guiar modelos de IA que venham a trabalhar neste projeto no futuro. Ele descreve a arquitetura, regras de negócio genéricas e decisões técnicas de implementação.
 
 ---
 
 ## 🎯 Visão Geral do Projeto
-O **transporExcel** é um utilitário desktop em Python com interface gráfica (GUI) feito para transpor dados de compras (faturas) de planilhas de **Controle de Cartão Corporativo** (geralmente estruturadas por colunas de categorias repetidas) para planilhas de **Relatório de Prestação de Contas** (estruturadas em uma tabela linear).
+O **transporExcel** é um utilitário desktop em Python com interface gráfica (GUI) e de linha de comando (CLI) feito para transpor dados estruturados de planilhas de origem (sejam elas lineares ou agrupadas em colunas repetidas por categoria) para planilhas de destino (estruturadas em uma tabela linear).
 
 ---
 
@@ -19,12 +19,12 @@ O **transporExcel** é um utilitário desktop em Python com interface gráfica (
 
 ## 🏗️ Arquitetura e Decisões Técnicas
 
-### 1. Tratamento de DRM/Criptografia Corporativa
-As planilhas de controle utilizam segurança corporativa do Office (DRM/IRM). Bibliotecas Python puras (como pandas ou openpyxl) falham ao abrir esses arquivos (`zipfile.BadZipFile` ou `XLRDError`).
+### 1. Tratamento de Arquivos Protegidos por DRM
+As planilhas de origem ou destino podem utilizar segurança corporativa do Office (DRM/IRM). Bibliotecas Python puras (como pandas ou openpyxl) falham ao abrir esses arquivos (`zipfile.BadZipFile` ou `XLRDError`).
 * **Solução:** O script utiliza o Microsoft Excel instalado localmente via automação COM. O Excel abre o arquivo em segundo plano (invisível/headless) e realiza a descriptografia transparente usando as credenciais do usuário local.
 
 ### 2. Execução Multi-threaded
-Operações de leitura e escrita via COM no Excel podem demorar de 1 a 5 segundos. Para evitar que a interface gráfica trave ou mostre "Não Respondendo":
+Operações de leitura e escrita via COM no Excel podem demorar. Para evitar que a interface gráfica trave ou mostre "Não Respondendo":
 * **Solução:** Todas as rotinas pesadas (carregar abas, mapear colunas, transpor, limpar) rodam em threads separadas (`threading.Thread`).
 * **Regra Importante do COM em Threads:** Sempre inicialize e encerre o ecossistema COM na thread de execução:
   ```python
@@ -33,13 +33,13 @@ Operações de leitura e escrita via COM no Excel podem demorar de 1 a 5 segundo
   # Executa ações com win32com...
   pythoncom.CoUninitialize()
   ```
-* **Atualizações de UI seguras:** As updates na interface gráfica vindas das threads são enfileiradas de forma segura na thread principal usando `root.after()`.
+* **Atualizações de UI seguras:** As atualizações na interface gráfica vindas das threads são enfileiradas de forma segura na thread principal usando `root.after()`.
 
 ### 3. Mapeamento Semântico de Colunas
 O programa possui um motor que analisa os cabeçalhos das planilhas para mapear equivalências:
-* **Sinônimos Semânticos:** Busca palavras-chave em português e inglês para associar as colunas (ex: "Data"/"Dia", "Descrição"/"Item", "Nota"/"NF", "Valor"/"Preço").
+* **Sinônimos Semânticos:** Busca palavras-chave em português e inglês para associar as colunas correspondentes (ex: "Data"/"Dia", "Descrição"/"Item", "Nota"/"NF", "Valor"/"Preço").
 * **Layouts Suportados:**
-  * **Categorias Múltiplas (Agrupado):** Se houver mais de uma coluna de descrição na planilha fonte (ex: Colunas B, E, H...), o motor interpreta que a planilha é agrupada em colunas de categorias repetidas compostas pelo trio `(Preço, Descrição, NF)`. Ele extrai os registros de todas elas e os unifica.
+  * **Categorias Múltiplas (Agrupado):** Se houver mais de uma coluna de descrição na planilha fonte, o motor interpreta que a planilha é agrupada em colunas de categorias repetidas compostas pelo trio `(Preço, Descrição, NF)`. Ele extrai os registros de todas elas e os unifica.
   * **Tabela Linear (Flat):** Se houver apenas uma coluna de descrição, ele faz o mapeamento um-para-um clássico de colunas.
 
 ### 4. Integração com Tabelas Nativas do Excel (`ListObjects`)
@@ -59,7 +59,7 @@ Ao limpar ou sobrescrever, o programa apaga linhas inteiras utilizando o interva
 * `transporExcel.py`: Arquivo principal da aplicação Tkinter.
 * `transporExcel.bat`: Inicializador local que ativa a `.venv` e roda o script em UTF-8.
 * `requirements.txt`: Contém a lista de dependências (`pywin32` e `pyinstaller`).
-* `compilado/transporExcel.exe`: Arquivo binário empacotado para execução direta sem necessidade de instalar dependências.
+* `compilado/transporExcel.exe`: Arquivo binário empacotado para execução direta.
 * `main.py`: Arquivo da versão CLI (linha de comando).
 * `executar.bat`: Inicializador local da versão CLI.
 * `gemini.md`: Este arquivo de contexto de IA.

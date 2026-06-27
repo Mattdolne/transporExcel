@@ -1,46 +1,52 @@
 # transporExcel
 
-Este projeto fornece soluções automatizadas para realizar a transposição de dados de compras de uma planilha de **Controle de Cartão** para uma planilha de **Relatório de Prestação de Contas**, além de possibilitar a limpeza dos dados da planilha de relatório.
+O **transporExcel** é um utilitário desktop em Python desenvolvido para realizar a transposição inteligente e automatizada de dados entre planilhas do Excel. O programa oferece duas formas de uso: uma **Interface Gráfica (GUI)** intuitiva e uma **Interface de Linha de Comando (CLI)** rápida.
 
 ---
 
-## 🖥️ Como Executar o Programa (Interface Gráfica)
+## 🖥️ Como Executar o Programa
 
-### 1. Na sua máquina local (Desenvolvimento)
-Você pode executar o programa usando o atalho de lote:
-👉 **[transporExcel.bat](file:///C:/Users/mattheus.pereira/Desktop/script_gestao_de_cartao/transporExcel.bat)**
+### 1. Interface Gráfica (GUI)
+Você pode rodar a aplicação através do arquivo de inicialização:
+👉 **`transporExcel.bat`**
 
-### 2. Em outras máquinas Windows (Sem Python instalado)
-Para testar e utilizar o programa em outras máquinas de forma autônoma:
-1. Abra a pasta **[compilado](file:///C:/Users/mattheus.pereira/Desktop/script_gestao_de_cartao/compilado)**.
-2. Copie o arquivo executável **`transporExcel.exe`** para a outra máquina.
-3. Clique duas vezes no executável para iniciar. Não é necessário ter o Python ou qualquer dependência instalada na outra máquina!
+Para utilizar em outras máquinas Windows que não possuam Python instalado:
+1. Acesse a pasta **`compilado/`**.
+2. Copie o arquivo executável **`transporExcel.exe`** para a máquina de destino.
+3. Clique duas vezes no executável para iniciar.
 
----
-
-## 🛠️ Recursos da Interface Gráfica
-
-* **Seleção Livre de Arquivos:** Escolha qualquer planilha fonte e destino no seu computador usando as caixas com botões "Procurar...".
-* **Seleção de Abas:** O programa lê e exibe as abas disponíveis em um menu suspenso para você escolher.
-* **Mapeamento Automático Inteligente (Preview):** O programa analisa semanticamente os cabeçalhos das planilhas em segundo plano e exibe uma caixa detalhada informando quais colunas equivalentes foram encontradas.
-* **Tabela Única Uniforme (ListObject.Resize):** O programa detecta Tabelas nativas no Excel (ListObjects) e as redimensiona para o tamanho exato dos novos dados, garantindo que o layout visual (zebra, bordas e filtros) permaneça uniforme após cada inserção ou limpeza.
-* **Modos de Transposição:**
-  * **Sobrescrever:** Limpa a tabela existente (mantendo o cabeçalho) e insere os novos dados.
-  * **Adicionar abaixo:** Localiza a última linha preenchida na tabela e adiciona as novas compras logo abaixo, estendendo a tabela nativa.
-* **Limpar Tabela:** Botão dedicado que apaga os lançamentos da tabela, deixando-a vazia e pronta para uso.
+### 2. Interface de Linha de Comando (CLI)
+Você pode rodar a versão de terminal através do atalho:
+👉 **`executar.bat`**
 
 ---
 
-## 🔒 Tecnologia de Leitura (Tratamento de DRM)
+## 🛠️ Recursos e Funcionalidades
 
-As planilhas de cartão corporativo utilizam criptografia de direitos digitais (DRM/IRM). Para possibilitar a decodificação de forma segura e transparente, o programa utiliza o Microsoft Excel instalado na máquina em segundo plano (COM Automation). A descriptografia ocorre automaticamente usando suas credenciais locais do Windows e da conta Office. **Portanto, a máquina de destino onde o executável for rodar precisa ter o Microsoft Excel instalado.**
+* **Seleção Dinâmica de Arquivos e Abas:** Permite selecionar qualquer arquivo de origem e destino e escolher quais abas serão utilizadas a partir de um menu de seleção.
+* **Mapeamento Semântico de Colunas:** O motor do programa analisa os cabeçalhos das planilhas em tempo real e identifica colunas equivalentes de forma inteligente (exato ou por proximidade semântica de sinônimos).
+* **Detecção de Layouts Múltiplos:** Suporta a leitura de planilhas com colunas agrupadas repetitivas ou tabelas lineares simples.
+* **Ajuste de Tabelas Nativas (ListObjects):** Identifica tabelas estruturadas nativas do Excel e as redimensiona dinamicamente de acordo com o volume de dados inserido, garantindo que o layout, filtros e formatações de cor permaneçam uniformes.
+* **Opções de Gravação:**
+  * **Sobrescrever:** Limpa o conteúdo existente abaixo do cabeçalho da tabela de destino e grava os novos registros.
+  * **Adicionar abaixo (Append):** Localiza a última linha ativa na tabela de destino e insere os registros na sequência, preservando a formatação.
+* **Limpeza de Dados:** Permite esvaziar os registros da tabela de destino mantendo sua estrutura e cabeçalhos intactos.
 
 ---
 
-## 📂 Arquivos do Projeto
-* [compilado/transporExcel.exe](file:///C:/Users/mattheus.pereira/Desktop/script_gestao_de_cartao/compilado/transporExcel.exe): Executável autônomo compilado para distribuição.
-* [transporExcel.py](file:///C:/Users/mattheus.pereira/Desktop/script_gestao_de_cartao/transporExcel.py): Código fonte da Interface Gráfica.
-* [transporExcel.bat](file:///C:/Users/mattheus.pereira/Desktop/script_gestao_de_cartao/transporExcel.bat): Atalho de inicialização para Windows local.
-* [main.py](file:///C:/Users/mattheus.pereira/Desktop/script_gestao_de_cartao/main.py): Código fonte da versão terminal CLI.
-* [executar.bat](file:///C:/Users/mattheus.pereira/Desktop/script_gestao_de_cartao/executar.bat): Atalho de inicialização para a versão terminal.
-* [requirements.txt](file:///C:/Users/mattheus.pereira/Desktop/script_gestao_de_cartao/requirements.txt): Dependências do projeto.
+## 🔒 Requisitos do Sistema (Tratamento de Arquivos Protegidos)
+
+Para viabilizar a leitura e escrita em planilhas que possuem proteção corporativa ou de direitos digitais (DRM/IRM), o programa utiliza automação COM (`win32com.client`) integrada diretamente ao Microsoft Excel local. 
+
+* **Requisito:** A máquina de execução precisa ter o **Microsoft Excel instalado** localmente para que a descriptografia ocorra de forma transparente pelo sistema operacional.
+
+---
+
+## 📂 Estrutura de Arquivos
+* `transporExcel.py`: Código fonte principal da interface gráfica.
+* `transporExcel.bat`: Inicializador local para a interface gráfica.
+* `main.py`: Código fonte principal da interface CLI.
+* `executar.bat`: Inicializador local para a interface CLI.
+* `compilado/transporExcel.exe`: Executável autônomo.
+* `requirements.txt`: Dependências necessárias do Python.
+* `gemini.md`: Contexto técnico para desenvolvedores.
